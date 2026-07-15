@@ -11,5 +11,23 @@ connectDB();
 // On défini le générique des routes qui sont en /api/projects font référence aux fichiers de routes ./routes/projects.routes : 
 app.use('/api/projects', require('./routes/projects.routes'));
 
+
+// Page d'acceuil : 
+
+// Liste des projets : 
+// détail d'un projet : 
+// creation d'un projet : 
+// liker un projet : 
+// commenter un projet (création d'un commentaire) : 
+// supprimer un projet
+// modifier un projet
+
+// modifier un commentaire
+// supprimer un commentaire
+
+// inscription : 
+// connexion : 
+// 
+
 // On écoute le server : 
 app.listen(5000, () => console.log('Server running'));
