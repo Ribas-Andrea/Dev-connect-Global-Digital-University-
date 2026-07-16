@@ -61,7 +61,7 @@ exports.createProject = async (req, res) => {
 				description,
 				skills,
 				image,
-				autho: null,
+				autho: req.user.userId,
 				likes: [],
 				comments: []
 			})

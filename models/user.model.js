@@ -6,10 +6,10 @@ const userSchema = new mongoose.Schema ({
   email : {type: String, required: true, unique: true},
   password: {type: String, required: true},
   bio: {type: String, default: ''},
-  avatar: {type: String}
-}, (timestamps : true)); // permet de rajouter de manière automatique un createdAt et updatedAt
+  avatar: {type: String},
+}, {timestamps : true}); // permet de rajouter de manière automatique un createdAt et updatedAt
 
-GPUShaderModule.exports = mongoose.model("User", userSchema);
+module.exports = mongoose.model("User", userSchema);
 
 
 

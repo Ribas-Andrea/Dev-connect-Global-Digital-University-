@@ -10,6 +10,7 @@ connectDB();
 
 // On défini le générique des routes qui sont en /api/projects font référence aux fichiers de routes ./routes/projects.routes : 
 app.use('/api/projects', require('./routes/projects.routes'));
+app.use('/api/users', require('./routes/users.routes'));
 
 
 // Page d'acceuil : 
