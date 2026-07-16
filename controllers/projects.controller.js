@@ -48,6 +48,7 @@ exports.getProject = (req, res) => {
 	// le return fait sortir de la fonction donc pas besoin de if else
 };
 
+
 exports.createProject = async (req, res) => {
 	try{
 			// const project = req.body; = un peut trop direct, il vaut mieux récupérer chaque valeur : 
@@ -56,28 +57,85 @@ exports.createProject = async (req, res) => {
 
 			if(!title)
 				return res.status(400).json({error: 'Titre obligatoire'});
-
 			const project = new Project ({
 				title,
 				description,
 				skills,
 				image, // 123456-789.png 
-				autho: req.user.userId,
+				author: req.user.userId,
 				likes: [],
 				comments: []
 			})
 
 			const savedProject = await project.save();
-			res.staus(201).json(savedProject)
+			res.status(201).json(savedProject)
+			// ou plus court : 
+			// res.staus(201).json(await project.save())
+	} catch (err) {
+    console.error(err);
+    res.status(500).json({
+        error: err.message
+    });
+}
+};
+
+exports.updateProject = async (req, res) => {
+	try {
+		const { id } = req.params;
+		const {title, description, skills, image} = req.body;
+
+		const project = await Project.findById(id);
+		if(!project) {
+			return res.status(404).json({error: 'Projet non trouvé'});
+		}
+
+		if(project.author.toString() !== req.user.userId) {
+			return res.status(403).json({error: 'Accès refusé: Vous n\'êtes pas l\'auteur'});
+		}
+
+		if(title)
+			project.title = title;
+
+		if(description)
+			project.description = description;
+
+		if(skills)
+			project.skills = skills;
+
+		if(image)
+			project.image = image;
+
+		const updatedProject = await project.save();
+		res.json(updatedProject);
+
+
 	} catch(err) {
 		console.error(err);
-		res.status(500).json({error: 'Erreur lors de la création'});
+		res.status(500).json({error: 'Erreur lors de la modification'});
 	}
-	
+}
+
+exports.deleteProject = async (req,res) => {
+try{
+		const { id } = req.params;
+
+		const project = await Project.findById(id);
+		if(!project) {
+			return res.status(404).json({error: 'Projet non trouvé'});
+		}
+
+		if(project.author.toString() !== req.user.userId) {
+			return res.status(403).json({error: 'Accès refusé: Vous n\'êtes pas l\'auteur'});
+		}
 
 
+		await project.deleteOne();
+		res.json({message: 'Projet supprimé avec succès'});
 
-// ou plus court : 
-// res.staus(201).json(await project.save())
+} catch(err) {
+		console.error(err);
+		res.status(500).json({error: 'Erreur lors de la modification'});
+	}
+}
 
-};
+// eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI2YTU4OTU4YmY1N2E3NTVhM2Q0MTI5N2YiLCJpYXQiOjE3ODQyMDc2MzQsImV4cCI6MTc4NDgxMjQzNH0.Wb1g0I5wVBnU9mDMA78yNVmtiCJJ7c7612nb0ln2eYk
