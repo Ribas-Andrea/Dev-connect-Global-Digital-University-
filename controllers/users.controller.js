@@ -3,6 +3,8 @@ const bcrypt = require('bcryptjs');
 const jwt = require('jsonwebtoken');
 const passwordValidator = require('password-validator'); // plugin de sécurité du mdp
 
+
+// inscription : 
 exports.register = async (req, res) => {
 try{
       const {email, password, bio, avatar} = req.body;
@@ -42,6 +44,9 @@ try{
   }
 }
 
+
+
+// connexion : 
 exports.login = async (req,res) => {
     try{
         const {email, password} = req.body;

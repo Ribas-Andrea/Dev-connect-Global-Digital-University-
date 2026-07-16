@@ -5,6 +5,7 @@ const cors = require('cors'); // on va s'attendre à ce que les requetes provien
 const rateLimit = require('express-rate-limit'); // permet de limiter le nombre de requetes sur un certain temps ex: le nombre de MDP
 const dotenv = require('dotenv');
 
+
 const app = express();
 dotenv.config();
 app.use(helmet());
@@ -13,11 +14,13 @@ app.use(rateLimit({
   windowMs: 15 * 60 * 1000, // 15 minutes en millisecondes
   max: 100 // maximum 100 requêtes 
   // donc max 100 requetes sur 15 minutes
-}))
+}));
+
 
 // pour dire que les données seront en json :
 app.use(express.json());
 
+app.use(express.static('uploads')); // permet de rendre le fichier accessible aux uploads - pour pouvoir accéder aux fichier uploadés
 connectDB();
 
 // On défini le générique des routes qui sont en /api/projects font référence aux fichiers de routes ./routes/projects.routes : 
@@ -35,10 +38,6 @@ app.use('/api/users', require('./routes/users.routes'));
 
 // modifier un commentaire
 // supprimer un commentaire
-
-// inscription : 
-// connexion : 
-// 
 
 // On écoute le server : 
 app.listen(5000, () => console.log('Server running'));

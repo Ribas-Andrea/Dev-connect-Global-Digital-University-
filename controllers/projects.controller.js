@@ -51,7 +51,8 @@ exports.getProject = (req, res) => {
 exports.createProject = async (req, res) => {
 	try{
 			// const project = req.body; = un peut trop direct, il vaut mieux récupérer chaque valeur : 
-			const {title, description, skills, image } = req.body;
+			const {title, description, skills, image} = req.body;
+			// const image = req.file.filename;
 
 			if(!title)
 				return res.status(400).json({error: 'Titre obligatoire'});
@@ -60,7 +61,7 @@ exports.createProject = async (req, res) => {
 				title,
 				description,
 				skills,
-				image,
+				image, // 123456-789.png 
 				autho: req.user.userId,
 				likes: [],
 				comments: []
