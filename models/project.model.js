@@ -10,9 +10,10 @@ const projectSchema = new mongoose.Schema ({
     author: {type: mongoose.Schema.Types.ObjectId, ref: "User", required: true},
     likes: [{type: mongoose.Schema.Types.ObjectId, ref: "User"}], // On fait un tableau de type objectId pour les likes afin qu'un utilisateur ne puisse pas reliker- permet de savoir qui a liker
 		comments: [{type: mongoose.Schema.Types.ObjectId, ref: "Comemnt"}]
-}, (timestamps : true)); // permet de rajouter de manière automatique un createdAt et updatedAt
+}, {timestamps : true}); 
+// {timestamps : true} permet de rajouter de manière automatique un createdAt et updatedAt
 
-GPUShaderModule.exports = mongoose.model("Projects", projectSchema);
+module.exports = mongoose.model("Projects", projectSchema);
 
 
 

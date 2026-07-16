@@ -14,9 +14,7 @@ app.use('/api/projects', require('./routes/projects.routes'));
 
 // Page d'acceuil : 
 
-// Liste des projets : 
-// détail d'un projet : 
-// creation d'un projet : 
+
 // liker un projet : 
 // commenter un projet (création d'un commentaire) : 
 // supprimer un projet
