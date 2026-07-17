@@ -28,16 +28,20 @@ app.use('/api/projects', require('./routes/projects.routes'));
 app.use('/api/users', require('./routes/users.routes'));
 
 
-// Page d'acceuil : 
-
-
-// liker un projet : 
-// commenter un projet (création d'un commentaire) : 
-// supprimer un projet
-// modifier un projet
-
-// modifier un commentaire
-// supprimer un commentaire
-
 // On écoute le server : 
 app.listen(5000, () => console.log('Server running'));
+
+
+// Objectifs du projet : 
+
+// Afficher les projets = exports.getProjects (projects.controller.js)
+// Afficher un projet = exports.getProject (projects.controller.js)
+// Gérer l'inscirption = exports.register (users.controller.js)
+// Gérer la connexion = exports.login (users.controller.js)
+// Créer un projet = exports.createProject (projects.controller.js)
+// Modifier un projet = exports.updateProject (projects.controller.js)
+// Supprimer un projet = exports.deleteProject (projects.controller.js)
+// Liker un projet = exports.likeProject (projects.controller.js)
+// Commenter un projet (création d'un commentaire) = exports.commentProject (projects.controller.js)
+// Modifier un commentaire
+// Supprimer un commentaire
