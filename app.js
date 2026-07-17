@@ -21,15 +21,29 @@ app.use(rateLimit({
 app.use(express.json());
 
 app.use(express.static('uploads')); // permet de rendre le fichier accessible aux uploads - pour pouvoir accéder aux fichier uploadés
-connectDB();
+
+// Connexion MongoDB uniquement hors tests
+if (process.env.NODE_ENV !== "test") {
+  connectDB();
+}
 
 // On défini le générique des routes qui sont en /api/projects font référence aux fichiers de routes ./routes/projects.routes : 
 app.use('/api/projects', require('./routes/projects.routes'));
 app.use('/api/users', require('./routes/users.routes'));
 
 
-// On écoute le server : 
-app.listen(5000, () => console.log('Server running'));
+// Démarrage serveur uniquement hors tests
+if (process.env.NODE_ENV !== "test") {
+  app.listen(5000, () => {
+    console.log("Server running");
+  });
+}
+
+// Export nécessaire pour Supertest
+module.exports = app;
+
+
+
 
 
 // Objectifs du projet : 
@@ -45,3 +59,5 @@ app.listen(5000, () => console.log('Server running'));
 // Commenter un projet (création d'un commentaire) = exports.commentProject (projects.controller.js)
 // Modifier un commentaire
 // Supprimer un commentaire
+
+
