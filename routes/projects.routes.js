@@ -5,10 +5,52 @@ const auth = require('../middleware/auth');
 const upload = require('../middleware/multer');
 
 
+/**@swagger
+ * tags:
+ *  name: Projects
+ *  description: Gestion des projets
+ */
+
+
 // On appel la fonction getProjects pour créer la route API : 
 router.get('/' ,getProjects);// Liste des projets
 router.get('/:id' ,getProject); // détail d'un projet
 router.post('/' , auth, upload.single('image'), createProject); // creation d'un projet --- upload.single('image') => on met image car c'est comme cela qu'on l'a appler dans le ficher projects.controller.js ligne 54 "const {title, description, skills, image } = req.body;"
+
+/**
+ * @swagger
+ *  /api/projects:
+ *    post:
+ *      summary: Créer un nouveau projet
+ *      tags: [Projects]
+ *      security: 
+ *          - bearerAuth: []
+ *      requestBody:
+ *        required: true
+ *        content:
+ *          application/json:
+ *            schema:
+ *              type: object
+ *              required:
+ *                  -title
+ *              properties:
+ *                  title:
+ *                    type: string
+ *                  description:
+ *                    type: string
+ *                  skills:
+ *                    type: array
+ *                    items:
+ *                        type: string
+ *      responses:
+ *          201:
+ *              description: Projet créé
+ *          400:
+ *              description: Titre obligatoire
+ *          401:
+ *              description: Token obligatoire
+ */
+
 router.put('/:id', auth, upload.single('image'), updateProject); // modification d'un projet
 router.delete('/:id', auth, deleteProject) // suppression d'un projet
 router.post('/:id/like' , auth, likeProject); // Liker un projet

@@ -4,6 +4,7 @@ const helmet = require('helmet'); // plugin de sécurité : permet d'ajouter une
 const cors = require('cors'); // on va s'attendre à ce que les requetes proviennent uniquement du même domaine de l'API
 const rateLimit = require('express-rate-limit'); // permet de limiter le nombre de requetes sur un certain temps ex: le nombre de MDP
 const dotenv = require('dotenv');
+const setupSwagger = require('./swagger');
 
 
 const app = express();
@@ -30,6 +31,8 @@ if (process.env.NODE_ENV !== "test") {
 // On défini le générique des routes qui sont en /api/projects font référence aux fichiers de routes ./routes/projects.routes : 
 app.use('/api/projects', require('./routes/projects.routes'));
 app.use('/api/users', require('./routes/users.routes'));
+
+setupSwagger (app);
 
 
 // Démarrage serveur uniquement hors tests
